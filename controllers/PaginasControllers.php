@@ -51,8 +51,12 @@ class PaginasControllers
     }
     public static function contacto(Router $router)
     {
+        $mensaje = null;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $respuestas = $_POST['contacto'];
+
             // Crear n ainstancia de php mailer
             $mail = new PHPMailer();
             // Configurar SMPT
@@ -73,8 +77,32 @@ class PaginasControllers
             $mail->isHTML(true);
             $mail->CharSet = 'UTF-8';
 
+
             // Definir el contenido
-            $contenido = '<html> <p> teines un nuevo mensaje </p></html>';
+            $contenido = '<html>';
+            $contenido .= '<p> teines un nuevo mensaje </p> ';
+            $contenido .= '<p>Nombre:' . $respuestas['nombre'] . ' </p> ';
+
+
+            // Enviar de forma condicional algunos de email a telefono
+
+            if ($respuestas['contacto'] === 'telefono') {
+                $contenido .= '<p>Eligio ser contactado por Teléfono</p> ';
+                $contenido .= '<p>Telefono:' . $respuestas['telefono'] . ' </p> ';
+                $contenido .= '<p>Fecha;' . $respuestas['fecha'] . ' </p> ';
+                $contenido .= '<p>Hora:' . $respuestas['hora'] . ' </p> ';
+            } else {
+                // es email, entonces agragmos el campo de email
+                $contenido .= '<p>Eligio ser contactado por email</p> ';
+                $contenido .= '<p>Email:' . $respuestas['email'] . ' </p> ';
+            }
+
+            $contenido .= '<p>Mensaje:' . $respuestas['mensaje'] . ' </p> ';
+            $contenido .= '<p>Compora o Venta:' . $respuestas['tipo'] . ' </p> ';
+            $contenido .= '<p>Precio o Presupuesto:' . $respuestas['precio'] . ' </p> ';
+            $contenido .= '<p>Prefiere se contactado por:' . $respuestas['contacto'] . ' </p> ';
+
+            $contenido .= '</html>';
 
             $mail->Body = $contenido;
             $mail->AltBody = 'esto es texto alternativo sin html';
@@ -82,11 +110,13 @@ class PaginasControllers
             // Enviar eñ email
             // debuguear($mail->send());
             if ($mail->send()) {
-                echo 'Mensaje envaido correctamente';
+                $mensaje = 'Mensaje envaido correctamente';
             } else {
-                echo "El mensaje no se pudo enviar..." . $mail->ErrorInfo;
+                $mensaje = "El mensaje no se pudo enviar..." . $mail->ErrorInfo;
             }
         }
-        $router->render('paginas/contacto', []);
+        $router->render('paginas/contacto', [
+            'mensaje' => $mensaje
+        ]);
     }
 }
