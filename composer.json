@@ -1,0 +1,22 @@
+{
+    "name": "jorge/bienesraices",
+    "description": "Creando un proyecto con POO",
+    "type": "project",
+    "authors": [
+        {
+            "name": "jorge-DPS",
+            "email": "jorgedanielpacosillo@gmail.com"
+        }
+    ],
+    "require": {
+        "intervention/image": "^2.7",
+        "phpmailer/phpmailer": "^6.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Model\\": "./models",
+            "MVC\\": "./",
+            "Controllers\\": "./Controllers"
+        }
+    }
+}

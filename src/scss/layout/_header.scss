@@ -1,0 +1,45 @@
+.no-webp .inicio {
+    background-image: url(../img/header.jpg);
+}
+
+.webp .inicio {
+    background-image: url(../img/header.webp);
+}
+
+.header {
+    background-color: $grisOscuro;
+    padding: 1rem 0 3rem 0;
+
+    /* aqui cuanod las clases estan uno frente al otro, entonces las clases deben ir con punto juntos (.header.incio) */
+    /* para lograr eso ponemos un &.class dentro de la clse que esta primero en el html, asi estaran (.header.inicio) */
+    &.inicio {
+
+        background-position: center center;
+        background-size: cover;
+
+        @include tablet {
+            min-height: 70rem;
+        }
+
+        .contenido-header {
+            @include tablet {
+                min-height: 70rem;
+            }
+        }
+    }
+}
+
+.contenido-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+
+    h1 {
+        text-align: left;
+        color: $blanco;
+        font-weight: $bold;
+        line-height: 2;
+        max-width: 60rem;
+    }
+}
