@@ -19,7 +19,6 @@ class PropiedadController
         // Muestra mensaje cuando se creo el anuncio correctamente, trae en la url, el mensaje
         $resultado = $_GET['resultado'] ?? null; // -> si no existe le asiga un valo null; es como el isset()
 
-
         $router->render('/propiedades/admin', [
             'propiedades' => $propiedades,
             'resultado' => $resultado,

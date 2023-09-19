@@ -1,3 +1,4 @@
+
 <fieldset>
 
     <legend>Información General</legend>
@@ -37,9 +38,10 @@
     <label for="vendedor">Vendedor</label>
     <select name="propiedad[vendedorId]" id="vendedor">
         <option selected value=""> --Seleccione-- </option>
+        
         <?php foreach ($vendedores as $vendedor) : ?>
             <option <?php echo $propiedad->vendedorId === $vendedor->id ? 'selected' : '' ?> value="<?php echo sanitizar($vendedor->id); ?>"><?php echo sanitizar($vendedor->nombre) . " " . sanitizar($vendedor->apellido); ?></option>
-        <?php endforeach ?>
+        <?php endforeach; ?>
     </select>
 
 </fieldset>

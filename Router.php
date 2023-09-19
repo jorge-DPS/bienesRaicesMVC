@@ -18,16 +18,31 @@ class Router
     }
     public function comprobarRutas()
     {
+        
+        session_start();
+        $auth = $_SESSION['login'] ?? null;
+        
+        // arreglo de rutas protegidas...
+        
+        $rutasProtegidas = ['/admin','/propiedades/crear', '/propiedades/actualizar', '/propiedades/eliminar', '/vendedores/crear', '/vendedores/actualiaar', '/vendedores/eliminar'];
+        
         $urlactual = $_SERVER['PATH_INFO'] ?? '/';
         $metodo = $_SERVER['REQUEST_METHOD'];
-
+        
+        
         if ($metodo === 'GET') {
             $fn = $this->rutasGET[$urlactual] ?? null;
         } else {
             $fn = $this->rutasPOST[$urlactual] ?? null;
         }
 
-        if ($fn != null) {
+        // Proteger las rutas 
+        if (in_array($urlactual, $rutasProtegidas) && !$auth) {
+            // echo ' es una  ruta protegida';
+            header('Location: /');
+        }
+
+        if ($fn) {
             // La url existe y hay una funcion asociada}
             call_user_func($fn, $this); //->call_user_func() sirve para llamar a fuunciones que no se sabe como se llaman
         } else {

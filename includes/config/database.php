@@ -3,7 +3,7 @@
 function conectarDB(): mysqli
 {
     date_default_timezone_set('America/La_Paz');
-    $db = new mysqli('localhost', 'root', '', 'bienesraices_crud');
+    $db = new mysqli('localhost', 'root', 'root', 'bienesraices_crud');
 
     if (!$db) {
         echo "Error no se pudo conectar";
